@@ -1,28 +1,94 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Pengenalan Hewan</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday 🎉</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(to top right, #ff9a9e, #fad0c4);
+      overflow: hidden;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+    }
+    h1 {
+      font-size: 2.5em;
+      color: white;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+      z-index: 10;
+    }
+    #message {
+      display: none;
+      font-size: 1.5em;
+      color: yellow;
+      background: rgba(0,0,0,0.5);
+      padding: 10px 20px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+    .balloon {
+      position: absolute;
+      bottom: -150px;
+      width: 50px;
+      height: 70px;
+      background: red;
+      border-radius: 50% 50% 50% 50%;
+      animation: rise 8s infinite ease-in;
+    }
+    @keyframes rise {
+      0% { transform: translateY(0) rotate(0deg);}
+      100% { transform: translateY(-120vh) rotate(360deg);}
+    }
+  </style>
 </head>
 <body>
-    <h1>🐾 Pengenalan Hewan 🐾</h1>
+  <div style="text-align:center; z-index:10;">
+    <h1>🎂 Happy Birthday, Nurmila! 🎂</h1>
+    <p>Klik balon untuk lihat kejutan 🎈</p>
+    <div id="message">💌 Semoga panjang umur, sehat selalu, dan sukses! 💌</div>
+  </div>
 
-    <div class="container" id="animal-container">
-        <!-- KONTEN HEWAN AKAN DIMASUKKAN DARI JAVASCRIPT -->
-    </div>
+  <script>
+    // Buat balon melayang
+    for (let i = 0; i < 20; i++) {
+      let balloon = document.createElement("div");
+      balloon.className = "balloon";
+      balloon.style.left = Math.random() * window.innerWidth + "px";
+      balloon.style.backgroundColor = `hsl(${Math.random()*360},70%,60%)`;
+      balloon.style.animationDuration = (5 + Math.random()*5) + "s";
+      balloon.onclick = () => {
+        document.getElementById("message").style.display = "block";
+        alert("🎉 Surprise! Selamat ulang tahun 🎉");
+      };
+      document.body.appendChild(balloon);
+    }
 
-    <div class="quiz">
-        <p>Berapa jumlah gambar hewan yang muncul?</p>
-        <div class="options">
-            <button onclick="checkAnswer(2)">2</button>
-            <button onclick="checkAnswer(3)">3</button>
-            <button onclick="checkAnswer(4)">4</button>
-        </div>
-        <p id="feedback"></p>
-    </div>
+    // Tambah confetti
+    function createConfetti() {
+      const confetti = document.createElement("div");
+      confetti.style.position = "absolute";
+      confetti.style.width = "8px";
+      confetti.style.height = "8px";
+      confetti.style.background = `hsl(${Math.random()*360}, 100%, 50%)`;
+      confetti.style.left = Math.random() * window.innerWidth + "px";
+      confetti.style.top = "-10px";
+      confetti.style.opacity = "0.8";
+      confetti.style.transform = `rotate(${Math.random()*360}deg)`;
+      document.body.appendChild(confetti);
 
-    <script src="script.js"></script>
+      let fall = setInterval(() => {
+        confetti.style.top = (parseInt(confetti.style.top) + 3) + "px";
+        if (parseInt(confetti.style.top) > window.innerHeight) {
+          confetti.remove();
+          clearInterval(fall);
+        }
+      }, 20);
+    }
+    setInterval(createConfetti, 100);
+  </script>
 </body>
 </html>
